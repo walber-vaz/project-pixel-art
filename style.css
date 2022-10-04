@@ -11,14 +11,15 @@ body {
 }
 
 h1 {
-  font-family: VT323, monospace;
+  font-family: 'VT323', monospace;
   font-size: 50px;
   color: black;
 }
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  text-align: center;
   justify-content: center;
   align-content: center;
   margin: 40px auto;

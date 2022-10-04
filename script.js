@@ -1,4 +1,3 @@
-const getId = document.getElementById('color-palette');
 const container = document.querySelector('.container');
 
 const title = document.createElement('h1');
@@ -6,6 +5,11 @@ title.id = 'title';
 title.innerText = 'Paleta de Cores';
 
 container.appendChild(title);
+
+const colorPalette = document.createElement('div');
+colorPalette.id = 'color-palette';
+
+container.appendChild(colorPalette);
 
 const divBlack = document.createElement('div');
 divBlack.style.width = '50px';
@@ -15,7 +19,7 @@ divBlack.style.display = 'inline-block';
 divBlack.style.margin = '10px';
 divBlack.style.border = 'solid 1px black';
 divBlack.style.backgroundColor = 'black';
-getId.appendChild(divBlack);
+colorPalette.appendChild(divBlack);
 
 /* function radomColor() {
   const r = Math.floor(Math.random() * 256);
@@ -39,7 +43,7 @@ function creteElement() {
     /* if (createDivs.style.backgroundColor === 'rgb 255, 255, 255') {
       createDivs.style.backgroundColor = radomColor();
     } */
-    getId.appendChild(createDivs);
+    colorPalette.appendChild(createDivs);
   }
 }
 
