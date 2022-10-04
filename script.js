@@ -1,11 +1,11 @@
 const getId = document.getElementById('color-palette');
-// const container = document.querySelector('.container');
+const container = document.querySelector('.container');
 
 const title = document.createElement('h1');
 title.id = 'title';
 title.innerText = 'Paleta de Cores';
 
-getId.appendChild(title);
+container.appendChild(title);
 
 const divBlack = document.createElement('div');
 divBlack.style.width = '50px';
@@ -17,15 +17,16 @@ divBlack.style.border = 'solid 1px black';
 divBlack.style.backgroundColor = 'black';
 getId.appendChild(divBlack);
 
-function radomColor() {
+/* function radomColor() {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
 
   return `rgb(${r}, ${g}, ${b})`;
-}
+} */
 
 function creteElement() {
+  const colors = ['red', 'green', 'yellow'];
   for (let index = 0; index < 3; index += 1) {
     const createDivs = document.createElement('div');
     createDivs.style.width = '50px';
@@ -34,10 +35,10 @@ function creteElement() {
     createDivs.style.display = 'inline-block';
     createDivs.style.margin = '10px';
     createDivs.style.border = 'solid 1px black';
-    createDivs.style.backgroundColor = radomColor();
-    if (createDivs.style.backgroundColor === 'rgb 255, 255, 255') {
+    createDivs.style.backgroundColor = colors[index];
+    /* if (createDivs.style.backgroundColor === 'rgb 255, 255, 255') {
       createDivs.style.backgroundColor = radomColor();
-    }
+    } */
     getId.appendChild(createDivs);
   }
 }
