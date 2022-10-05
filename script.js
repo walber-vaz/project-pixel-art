@@ -23,14 +23,9 @@ window.onload = () => {
 
   // eslint-disable-next-line max-lines-per-function
   const createDivs = () => {
-    let colorsDb = JSON.parse(localStorage.getItem('colorPalette'));
-    if (colorsDb === null) {
-      colorsDb = ['black', 'red', 'green', 'blue'];
-    }
     for (let index = 0; index < 4; index += 1) {
       const createDiv = document.createElement('div');
       createDiv.className = 'color';
-      createDiv.style.backgroundColor = colorsDb[index];
       createDiv.style.width = '50px';
       createDiv.style.height = '50px';
       createDiv.style.display = 'inline-block';
@@ -40,10 +35,27 @@ window.onload = () => {
       createDiv.style.cursor = 'pointer';
       if (index === 0) {
         // eslint-disable-next-line prefer-destructuring
-        createDiv.style.backgroundColor = colorsDb[0];
+        createDiv.style.backgroundColor = 'black';
         createDiv.className = 'color selected';
       }
       idPalette.appendChild(createDiv);
+    }
+  };
+
+  const saveColor = () => {
+    const getColors = document.querySelectorAll('.color');
+    // eslint-disable-next-line sonarjs/no-unused-collection
+    const saveStorage = ['black'];
+    for (let index = 1; index < 4; index += 1) {
+      const color = getColors[index].style.backgroundColor;
+      saveStorage.push(color);
+    }
+    if (localStorage.length === 0) {
+      localStorage.setItem('colorPalette', JSON.stringify(saveStorage));
+    }
+    const colorSavers = JSON.parse(localStorage.getItem('colorPalette'));
+    for (let index = 1; index < 4; index += 1) {
+      getColors[index].style.backgroundColor = colorSavers[index];
     }
   };
 
@@ -71,17 +83,15 @@ window.onload = () => {
     btn.style.outline = 'none';
     btn.style.marginTop = '20px';
     btn.style.cursor = 'pointer';
-    btn.addEventListener('click', (event) => {
-      event.preventDefault();
+    btn.addEventListener('click', () => {
       styleDiv();
-      const getColorDivs = document.querySelectorAll('.color');
-      // eslint-disable-next-line sonarjs/no-unused-collection
-      const dbColors = ['black'];
+      const getColors = document.querySelectorAll('.color');
+      const colorsDb = ['black'];
       for (let index = 1; index < 4; index += 1) {
-        const getBgColor = getColorDivs[index].style.backgroundColor;
-        dbColors.push(getBgColor);
+        const getColor = getColors[index].style.backgroundColor;
+        colorsDb.push(getColor);
       }
-      localStorage.setItem('colorPalette', JSON.stringify(dbColors));
+      localStorage.setItem('colorPalette', JSON.stringify(colorsDb));
     });
     idPalette.appendChild(btn);
   };
@@ -114,6 +124,8 @@ window.onload = () => {
   createDivs();
   createBtnRandomColor();
   createTablePixel();
+  styleDiv();
+  saveColor();
 
   idPalette.addEventListener('click', (event) => {
     const classSelected = document.querySelector('.selected');
