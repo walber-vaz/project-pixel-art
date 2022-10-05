@@ -65,7 +65,34 @@ const clickBtn = () => {
   const getIdBtn = document.querySelector('#button-random-color');
   getIdBtn.addEventListener('click', () => {
     genColorRadom();
+    const getClassColors = document.querySelectorAll('.color');
+    const colorPalette = [];
+
+    for (let index = 1; index < 4; index += 1) {
+      const color = getClassColors[index].style.backgroundColor;
+      colorPalette[0] = 'black';
+      colorPalette.push(color);
+    }
+    localStorage.setItem('colorPalette', JSON.stringify(colorPalette));
   });
+};
+
+const savePaletteLocalStorage = () => {
+  const colors = document.querySelectorAll('.color');
+  const savePalette = [];
+  for (let index = 1; index < 4; index += 1) {
+    const color = colors[index].style.backgroundColor;
+    savePalette[0] = 'black';
+    savePalette.push(color);
+  }
+  if (localStorage.length === 0) {
+    localStorage.setItem('colorPalette', JSON.stringify(savePalette));
+  } else {
+    const saved = JSON.parse(localStorage.getItem('colorPalette'));
+    for (let indice = 1; indice < 4; indice += 1) {
+      colors[indice].style.backgroundColor = saved[indice];
+    }
+  }
 };
 
 window.onload = () => {
@@ -75,4 +102,5 @@ window.onload = () => {
   genColorRadom();
   createBtnColorGeneration();
   clickBtn();
+  savePaletteLocalStorage();
 };
