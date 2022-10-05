@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-lines-per-function
 window.onload = () => {
   const container = document.querySelector('.container');
+  const idPalette = document.querySelector('#color-palette');
 
   const creteTitle = () => {
     const title = document.createElement('h1');
@@ -9,7 +10,7 @@ window.onload = () => {
     title.style.fontFamily = '"VT323", monospace';
     title.style.fontSize = '50px';
     title.style.color = 'black';
-    container.appendChild(title);
+    container.insertBefore(title, idPalette);
   };
 
   const radomColor = () => {
@@ -22,23 +23,25 @@ window.onload = () => {
 
   // eslint-disable-next-line max-lines-per-function
   const createDivs = () => {
-    const colors = ['yellow', 'red', 'green', 'blue'];
+    let colorsDb = JSON.parse(localStorage.getItem('colorPalette'));
+    if (colorsDb === null) {
+      colorsDb = ['black', 'red', 'green', 'blue'];
+    }
     for (let index = 0; index < 4; index += 1) {
-      const colorPalette = document.createElement('div');
-      colorPalette.id = 'color-palette';
-      colorPalette.className = 'color';
-      colorPalette.style.backgroundColor = colors[index];
-      colorPalette.style.width = '50px';
-      colorPalette.style.height = '50px';
-      colorPalette.style.display = 'inline-block';
-      colorPalette.style.margin = '10px';
-      colorPalette.style.marginTop = '20px';
-      colorPalette.style.border = 'solid 1px black';
+      const createDiv = document.createElement('div');
+      createDiv.className = 'color';
+      createDiv.style.backgroundColor = colorsDb[index];
+      createDiv.style.width = '50px';
+      createDiv.style.height = '50px';
+      createDiv.style.display = 'inline-block';
+      createDiv.style.margin = '10px';
+      createDiv.style.marginTop = '20px';
+      createDiv.style.border = 'solid 1px black';
       if (index === 0) {
-        colorPalette.style.backgroundColor = 'black';
+        // eslint-disable-next-line prefer-destructuring
+        createDiv.style.backgroundColor = colorsDb[0];
       }
-      container.appendChild(colorPalette);
-      console.log(colorPalette);
+      idPalette.appendChild(createDiv);
     }
   };
 
@@ -52,6 +55,7 @@ window.onload = () => {
     }
   };
 
+  // eslint-disable-next-line max-lines-per-function
   const createBtnRandomColor = () => {
     const btn = document.createElement('button');
     btn.id = 'button-random-color';
@@ -59,13 +63,24 @@ window.onload = () => {
     btn.style.display = 'block';
     btn.style.textAlign = 'center';
     btn.style.margin = 'auto';
-    btn.style.fontFamily = 'VT323';
+    btn.style.fontFamily = '"VT323"';
     btn.style.fontSize = '24px';
     btn.style.padding = '5px';
     btn.style.outline = 'none';
     btn.style.marginTop = '20px';
-    btn.addEventListener('click', styleDiv);
-    container.appendChild(btn);
+    btn.addEventListener('click', (event) => {
+      event.preventDefault();
+      styleDiv();
+      const getColorDivs = document.querySelectorAll('.color');
+      // eslint-disable-next-line sonarjs/no-unused-collection
+      const dbColors = ['black'];
+      for (let index = 1; index < 4; index += 1) {
+        const getBgColor = getColorDivs[index].style.backgroundColor;
+        dbColors.push(getBgColor);
+      }
+      localStorage.setItem('colorPalette', JSON.stringify(dbColors));
+    });
+    idPalette.appendChild(btn);
   };
 
   creteTitle();
