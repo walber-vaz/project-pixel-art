@@ -83,7 +83,31 @@ window.onload = () => {
     idPalette.appendChild(btn);
   };
 
+  // eslint-disable-next-line max-lines-per-function
+  const createTablePixel = () => {
+    const getIdTable = document.querySelector('#pixel-board');
+    getIdTable.style.display = 'flex';
+    getIdTable.style.flexDirection = 'column';
+    getIdTable.style.justifyContent = 'center';
+    getIdTable.style.alignItems = 'center';
+    getIdTable.style.margin = '20px auto';
+    for (let index = 0; index < 5; index += 1) {
+      const createTable = document.createElement('tr');
+      getIdTable.appendChild(createTable);
+      for (let index2 = 0; index2 < 5; index2 += 1) {
+        const createTableTD = document.createElement('td');
+        createTableTD.className = 'pixel';
+        createTableTD.style.backgroundColor = 'white';
+        createTableTD.style.width = '40px';
+        createTableTD.style.height = '40px';
+        createTableTD.style.border = 'solid 1px black';
+        createTable.appendChild(createTableTD);
+      }
+    }
+  };
+
   creteTitle();
   createDivs();
   createBtnRandomColor();
+  createTablePixel();
 };
