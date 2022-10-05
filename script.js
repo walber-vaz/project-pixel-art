@@ -1,50 +1,74 @@
-const container = document.querySelector('.container');
+// eslint-disable-next-line max-lines-per-function
+window.onload = () => {
+  const container = document.querySelector('.container');
 
-const title = document.createElement('h1');
-title.id = 'title';
-title.innerText = 'Paleta de Cores';
+  const creteTitle = () => {
+    const title = document.createElement('h1');
+    title.id = 'title';
+    title.innerText = 'Paleta de Cores';
+    title.style.fontFamily = '"VT323", monospace';
+    title.style.fontSize = '50px';
+    title.style.color = 'black';
+    container.appendChild(title);
+  };
 
-container.appendChild(title);
+  const radomColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
 
-const colorPalette = document.createElement('div');
-colorPalette.id = 'color-palette';
+    return `rgb(${r}, ${g}, ${b})`;
+  };
 
-container.appendChild(colorPalette);
+  // eslint-disable-next-line max-lines-per-function
+  const createDivs = () => {
+    const colors = ['yellow', 'red', 'green', 'blue'];
+    for (let index = 0; index < 4; index += 1) {
+      const colorPalette = document.createElement('div');
+      colorPalette.id = 'color-palette';
+      colorPalette.className = 'color';
+      colorPalette.style.backgroundColor = colors[index];
+      colorPalette.style.width = '50px';
+      colorPalette.style.height = '50px';
+      colorPalette.style.display = 'inline-block';
+      colorPalette.style.margin = '10px';
+      colorPalette.style.marginTop = '20px';
+      colorPalette.style.border = 'solid 1px black';
+      if (index === 0) {
+        colorPalette.style.backgroundColor = 'black';
+      }
+      container.appendChild(colorPalette);
+      console.log(colorPalette);
+    }
+  };
 
-const divBlack = document.createElement('div');
-divBlack.style.width = '50px';
-divBlack.style.height = '50px';
-divBlack.className = 'color';
-divBlack.style.display = 'inline-block';
-divBlack.style.margin = '10px';
-divBlack.style.border = 'solid 1px black';
-divBlack.style.backgroundColor = 'black';
-colorPalette.appendChild(divBlack);
+  const styleDiv = () => {
+    const isWhiteColorDiv = document.querySelectorAll('.color');
+    for (let index = 1; index < 4; index += 1) {
+      isWhiteColorDiv[index].style.backgroundColor = radomColor();
+      if (isWhiteColorDiv[index] === 'rgb 255, 255, 255') {
+        isWhiteColorDiv[index].style.backgroundColor = radomColor();
+      }
+    }
+  };
 
-/* function radomColor() {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
+  const createBtnRandomColor = () => {
+    const btn = document.createElement('button');
+    btn.id = 'button-random-color';
+    btn.innerText = 'Cores aleatórias';
+    btn.style.display = 'block';
+    btn.style.textAlign = 'center';
+    btn.style.margin = 'auto';
+    btn.style.fontFamily = 'VT323';
+    btn.style.fontSize = '24px';
+    btn.style.padding = '5px';
+    btn.style.outline = 'none';
+    btn.style.marginTop = '20px';
+    btn.addEventListener('click', styleDiv);
+    container.appendChild(btn);
+  };
 
-  return `rgb(${r}, ${g}, ${b})`;
-} */
-
-function creteElement() {
-  const colors = ['red', 'green', 'yellow'];
-  for (let index = 0; index < 3; index += 1) {
-    const createDivs = document.createElement('div');
-    createDivs.style.width = '50px';
-    createDivs.style.height = '50px';
-    createDivs.className = 'color';
-    createDivs.style.display = 'inline-block';
-    createDivs.style.margin = '10px';
-    createDivs.style.border = 'solid 1px black';
-    createDivs.style.backgroundColor = colors[index];
-    /* if (createDivs.style.backgroundColor === 'rgb 255, 255, 255') {
-      createDivs.style.backgroundColor = radomColor();
-    } */
-    colorPalette.appendChild(createDivs);
-  }
-}
-
-creteElement();
+  creteTitle();
+  createDivs();
+  createBtnRandomColor();
+};
