@@ -95,6 +95,30 @@ const savePaletteLocalStorage = () => {
   }
 };
 
+const createTagTable = () => {
+  const createTable = document.createElement('table');
+  container.appendChild(createTable);
+};
+
+const createPixelTable = () => {
+  const getPai = document.querySelector('table');
+
+  for (let index = 0; index < 5; index += 1) {
+    const createTr = document.createElement('tr');
+    createTr.id = 'pixel-board';
+    getPai.appendChild(createTr);
+    for (let index2 = 0; index2 < 5; index2 += 1) {
+      const createTd = document.createElement('td');
+      createTd.className = 'pixel';
+      createTd.style.backgroundColor = 'white';
+      createTd.style.width = '40px';
+      createTd.style.height = '40px';
+      createTd.style.border = 'solid 1px black';
+      createTr.appendChild(createTd);
+    }
+  }
+};
+
 window.onload = () => {
   createTitle();
   createPaletteColors();
@@ -103,4 +127,6 @@ window.onload = () => {
   createBtnColorGeneration();
   clickBtn();
   savePaletteLocalStorage();
+  createTagTable();
+  createPixelTable();
 };
