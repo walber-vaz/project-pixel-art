@@ -54,9 +54,25 @@ const createDivsPaletteColors = () => {
   }
 };
 
+const createBtnColorGeneration = () => {
+  const createBtn = document.createElement('button');
+  createBtn.id = 'button-random-color';
+  createBtn.innerText = 'Cores aleatórias';
+  container.appendChild(createBtn);
+};
+
+const clickBtn = () => {
+  const getIdBtn = document.querySelector('#button-random-color');
+  getIdBtn.addEventListener('click', () => {
+    genColorRadom();
+  });
+};
+
 window.onload = () => {
   createTitle();
   createPaletteColors();
   createDivsPaletteColors();
   genColorRadom();
+  createBtnColorGeneration();
+  clickBtn();
 };
