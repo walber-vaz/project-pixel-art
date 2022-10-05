@@ -40,6 +40,7 @@ window.onload = () => {
       if (index === 0) {
         // eslint-disable-next-line prefer-destructuring
         createDiv.style.backgroundColor = colorsDb[0];
+        createDiv.className = 'color selected';
       }
       idPalette.appendChild(createDiv);
     }
