@@ -37,6 +37,7 @@ window.onload = () => {
       createDiv.style.margin = '10px';
       createDiv.style.marginTop = '20px';
       createDiv.style.border = 'solid 1px black';
+      createDiv.style.cursor = 'pointer';
       if (index === 0) {
         // eslint-disable-next-line prefer-destructuring
         createDiv.style.backgroundColor = colorsDb[0];
@@ -69,6 +70,7 @@ window.onload = () => {
     btn.style.padding = '5px';
     btn.style.outline = 'none';
     btn.style.marginTop = '20px';
+    btn.style.cursor = 'pointer';
     btn.addEventListener('click', (event) => {
       event.preventDefault();
       styleDiv();
@@ -102,6 +104,7 @@ window.onload = () => {
         createTableTD.style.width = '40px';
         createTableTD.style.height = '40px';
         createTableTD.style.border = 'solid 1px black';
+        createTableTD.style.cursor = 'pointer';
         createTable.appendChild(createTableTD);
       }
     }
@@ -111,4 +114,18 @@ window.onload = () => {
   createDivs();
   createBtnRandomColor();
   createTablePixel();
+
+  idPalette.addEventListener('click', (event) => {
+    const classSelected = document.querySelector('.selected');
+    classSelected.className = 'color';
+    // eslint-disable-next-line no-param-reassign
+    event.target.className = 'color selected';
+  });
+
+  const getIdPixel = document.querySelector('#pixel-board');
+  getIdPixel.addEventListener('click', (event) => {
+    const classSelected = document.querySelector('.selected');
+    // eslint-disable-next-line no-param-reassign
+    event.target.style.backgroundColor = classSelected.style.backgroundColor;
+  });
 };
