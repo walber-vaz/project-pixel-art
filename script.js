@@ -1,6 +1,24 @@
 const container = document.querySelector('.container');
 const border = 'solid 1px black';
 const idColorPalette = '#color-palette';
+const getDraw = [];
+
+const checkLocalStorage = () => {
+  const isNullLocalStorage = JSON.parse(localStorage.getItem('pixelBoard'));
+  const getClassPixel = document.querySelectorAll('.pixel');
+  for (let index2 = 0; index2 < getClassPixel.length; index2 += 1) {
+    getClassPixel[index2].style.backgroundColor = isNullLocalStorage[index2];
+  }
+};
+
+const saveDrawLocalStorage = () => {
+  const getClassPixel = document.querySelectorAll('.pixel');
+  getDraw.length = 0;
+  for (let index = 0; index < getClassPixel.length; index += 1) {
+    getDraw.push(getClassPixel[index].style.backgroundColor);
+  }
+  localStorage.setItem('pixelBoard', JSON.stringify(getDraw));
+};
 
 const randomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -147,6 +165,7 @@ const getPixelBoard = () => {
     const selectCorPixel = document.querySelector('.selected');
     const { target } = event;
     target.style.backgroundColor = selectCorPixel.style.backgroundColor;
+    saveDrawLocalStorage();
   });
 };
 
@@ -170,6 +189,19 @@ const btnClickResetColors = () => {
   });
 };
 
+const createLocalStorageSaveDraw = () => {
+  const isNullLocalStorage = JSON.parse(localStorage.getItem('pixelBoard'));
+  const getClassPixel = document.querySelectorAll('.pixel');
+  if (isNullLocalStorage === null) {
+    for (let index = 0; index < getClassPixel.length; index += 1) {
+      getDraw.push(getClassPixel[index].style.backgroundColor);
+    }
+    localStorage.setItem('pixelBoard', JSON.stringify(getDraw));
+  } else {
+    checkLocalStorage();
+  }
+};
+
 window.onload = () => {
   createTitle();
   createPaletteColors();
@@ -186,4 +218,5 @@ window.onload = () => {
   createPixelTable();
   getCorPalette();
   getPixelBoard();
+  createLocalStorageSaveDraw();
 };
