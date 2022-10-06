@@ -1,4 +1,5 @@
 const container = document.querySelector('.container');
+const border = 'solid 1px black';
 
 const randomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -37,21 +38,23 @@ const createDivsPaletteColors = () => {
   const getIdPai = document.querySelector('#color-palette');
   for (let index = 0; index < 4; index += 1) {
     const createDiv = document.createElement('div');
-    if (index === 0) {
-      createDiv.className = 'color';
-      createDiv.style.display = 'inline-block';
-      createDiv.style.backgroundColor = 'black';
-      createDiv.style.width = '40px';
-      createDiv.style.height = '40px';
-      createDiv.style.border = 'solid 1px black';
-    }
     createDiv.style.display = 'inline-block';
     createDiv.className = 'color';
     createDiv.style.width = '40px';
     createDiv.style.height = '40px';
-    createDiv.style.border = 'solid 1px black';
+    createDiv.style.border = `${border}`;
     getIdPai.appendChild(createDiv);
   }
+};
+
+const setClassDivBlack = () => {
+  const getIdPai = document.querySelector('#color-palette');
+  getIdPai.firstChild.className = 'color selected';
+  getIdPai.firstChild.style.display = 'inline-block';
+  getIdPai.firstChild.style.backgroundColor = 'black';
+  getIdPai.firstChild.style.width = '40px';
+  getIdPai.firstChild.style.height = '40px';
+  getIdPai.firstChild.style.border = `${border}`;
 };
 
 const createBtnColorGeneration = () => {
@@ -113,7 +116,7 @@ const createPixelTable = () => {
       createTd.style.backgroundColor = 'white';
       createTd.style.width = '40px';
       createTd.style.height = '40px';
-      createTd.style.border = 'solid 1px black';
+      createTd.style.border = `${border}`;
       createTr.appendChild(createTd);
     }
   }
@@ -123,6 +126,7 @@ window.onload = () => {
   createTitle();
   createPaletteColors();
   createDivsPaletteColors();
+  setClassDivBlack();
   genColorRadom();
   createBtnColorGeneration();
   clickBtn();
