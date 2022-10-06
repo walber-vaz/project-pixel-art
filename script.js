@@ -1,5 +1,6 @@
 const container = document.querySelector('.container');
 const border = 'solid 1px black';
+const idColorPalette = '#color-palette';
 
 const randomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -35,7 +36,7 @@ const createPaletteColors = () => {
 };
 
 const createDivsPaletteColors = () => {
-  const getIdPai = document.querySelector('#color-palette');
+  const getIdPai = document.querySelector(`${idColorPalette}`);
   for (let index = 0; index < 4; index += 1) {
     const createDiv = document.createElement('div');
     createDiv.style.display = 'inline-block';
@@ -48,7 +49,7 @@ const createDivsPaletteColors = () => {
 };
 
 const setClassDivBlack = () => {
-  const getIdPai = document.querySelector('#color-palette');
+  const getIdPai = document.querySelector(`${idColorPalette}`);
   getIdPai.firstChild.className = 'color selected';
   getIdPai.firstChild.style.display = 'inline-block';
   getIdPai.firstChild.style.backgroundColor = 'black';
@@ -99,12 +100,13 @@ const savePaletteLocalStorage = () => {
 };
 
 const createTagTable = () => {
-  const createTable = document.createElement('table');
-  container.appendChild(createTable);
+  const createTr = document.createElement('tr');
+  createTr.id = 'pixel-board';
+  container.appendChild(createTr);
 };
 
 const createPixelTable = () => {
-  const getPai = document.querySelector('table');
+  const getPai = document.querySelector('#pixel-board');
 
   for (let index = 0; index < 5; index += 1) {
     const createTr = document.createElement('tr');
@@ -122,6 +124,25 @@ const createPixelTable = () => {
   }
 };
 
+const getCorPalette = () => {
+  const getIdCor = document.querySelector(`${idColorPalette}`);
+  getIdCor.addEventListener('click', (event) => {
+    const selectCorPalette = document.querySelector('.selected');
+    selectCorPalette.className = 'color';
+    const { target } = event;
+    target.className = 'color selected';
+  });
+};
+
+const getPixelBoard = () => {
+  const getIdPixel = document.querySelector('#pixel-board');
+  getIdPixel.addEventListener('click', (event) => {
+    const selectCorPixel = document.querySelector('.selected');
+    const { target } = event;
+    target.style.backgroundColor = selectCorPixel.style.backgroundColor;
+  });
+};
+
 window.onload = () => {
   createTitle();
   createPaletteColors();
@@ -133,4 +154,6 @@ window.onload = () => {
   savePaletteLocalStorage();
   createTagTable();
   createPixelTable();
+  getCorPalette();
+  getPixelBoard();
 };
