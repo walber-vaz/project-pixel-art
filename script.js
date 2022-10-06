@@ -58,11 +58,18 @@ const setClassDivBlack = () => {
   getIdPai.firstChild.style.border = `${border}`;
 };
 
+const createDivListBtns = () => {
+  const createDiv = document.createElement('div');
+  createDiv.id = 'list-btns';
+  container.appendChild(createDiv);
+};
+
 const createBtnColorGeneration = () => {
+  const getPai = document.querySelector('#list-btns');
   const createBtn = document.createElement('button');
   createBtn.id = 'button-random-color';
   createBtn.innerText = 'Cores aleatórias';
-  container.appendChild(createBtn);
+  getPai.appendChild(createBtn);
 };
 
 const clickBtn = () => {
@@ -143,13 +150,36 @@ const getPixelBoard = () => {
   });
 };
 
+const btnResetColors = () => {
+  const getPai = document.querySelector('#list-btns');
+  const createBtnReset = document.createElement('button');
+
+  createBtnReset.id = 'clear-board';
+  createBtnReset.innerText = 'Limpar';
+  getPai.appendChild(createBtnReset);
+};
+
+const btnClickResetColors = () => {
+  const getIdBtnReset = document.querySelector('#clear-board');
+
+  getIdBtnReset.addEventListener('click', () => {
+    const getPixel = document.querySelectorAll('.pixel');
+    for (let index = 0; index < getPixel.length; index += 1) {
+      getPixel[index].style.backgroundColor = 'white';
+    }
+  });
+};
+
 window.onload = () => {
   createTitle();
   createPaletteColors();
   createDivsPaletteColors();
   setClassDivBlack();
   genColorRadom();
+  createDivListBtns();
   createBtnColorGeneration();
+  btnResetColors();
+  btnClickResetColors();
   clickBtn();
   savePaletteLocalStorage();
   createTagTable();
